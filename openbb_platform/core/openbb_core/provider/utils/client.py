@@ -2,12 +2,12 @@
 
 # pylint: disable=protected-access,invalid-overridden-method
 import asyncio
-import random
 import warnings
 from typing import Any, Dict, Type, Union
 
 import aiohttp
 from multidict import CIMultiDict, CIMultiDictProxy, MultiDict
+import secrets
 
 FILTER_QUERY_REGEX = r".*key.*|.*token.*|.*auth.*|(c$)"
 
@@ -35,7 +35,7 @@ def get_user_agent() -> str:
         "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:84.0) Gecko/20100101 Firefox/84.0",
     ]
 
-    return random.choice(user_agent_strings)  # nosec # noqa: S311
+    return secrets.choice(user_agent_strings)  # nosec # noqa: S311
 
 
 class ClientResponse(aiohttp.ClientResponse):

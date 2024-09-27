@@ -2,13 +2,13 @@
 
 import base64
 import json
-import random
 from typing import Dict, Literal
 
 import pytest
 import requests
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+import secrets
 
 data: Dict = {}
 
@@ -38,8 +38,8 @@ def get_equity_data():
     if "equity_data" in data:
         return data["equity_data"]
 
-    symbol = random.choice(["AAPL", "NVDA", "MSFT", "TSLA", "AMZN", "V"])  # noqa: S311
-    provider = random.choice(["fmp", "intrinio", "polygon"])  # noqa: S311
+    symbol = secrets.choice(["AAPL", "NVDA", "MSFT", "TSLA", "AMZN", "V"])  # noqa: S311
+    provider = secrets.choice(["fmp", "intrinio", "polygon"])  # noqa: S311
 
     data["equity_data"] = request_data("equity", symbol=symbol, provider=provider)
     return data["equity_data"]
@@ -51,8 +51,8 @@ def get_crypto_data():
         return data["crypto_data"]
 
     # TODO : add more crypto providers and symbols
-    symbol = random.choice(["BTCUSD"])  # noqa: S311
-    provider = random.choice(["fmp"])  # noqa: S311
+    symbol = secrets.choice(["BTCUSD"])  # noqa: S311
+    provider = secrets.choice(["fmp"])  # noqa: S311
 
     data["crypto_data"] = request_data(
         menu="crypto",

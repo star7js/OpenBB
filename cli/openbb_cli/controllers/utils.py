@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import random
 import re
 import shutil
 import sys
@@ -21,6 +20,7 @@ from openbb_cli.session import Session
 from openbb_core.app.model.obbject import OBBject
 from pytz import all_timezones, timezone
 from rich.table import Table
+import secrets
 
 if TYPE_CHECKING:
     from openbb_charting.core.openbb_figure import OpenBBFigure
@@ -541,7 +541,7 @@ def get_user_agent() -> str:
         "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:84.0) Gecko/20100101 Firefox/84.0",
     ]
 
-    return random.choice(user_agent_strings)  # nosec # noqa: S311
+    return secrets.choice(user_agent_strings)  # nosec # noqa: S311
 
 
 def get_flair() -> str:
