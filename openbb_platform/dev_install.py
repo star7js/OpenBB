@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from tomlkit import dumps, load, loads
+from security import safe_command
 
 PLATFORM_PATH = Path(__file__).parent.resolve()
 LOCK = PLATFORM_PATH / "poetry.lock"
@@ -142,13 +143,11 @@ def install_platform_local(_extras: bool = False):
         CMD = [sys.executable, "-m", "poetry"]
         extras_args = ["-E", "all"] if _extras else []
 
-        subprocess.run(
-            CMD + ["lock", "--no-update"],
+        safe_command.run(subprocess.run, CMD + ["lock", "--no-update"],
             cwd=PLATFORM_PATH,
             check=True,
         )
-        subprocess.run(
-            CMD + ["install"] + extras_args,
+        safe_command.run(subprocess.run, CMD + ["install"] + extras_args,
             cwd=PLATFORM_PATH,
             check=True,
         )
@@ -187,12 +186,11 @@ def install_platform_cli():
 
         CMD = [sys.executable, "-m", "poetry"]
 
-        subprocess.run(
-            CMD + ["lock", "--no-update"],
+        safe_command.run(subprocess.run, CMD + ["lock", "--no-update"],
             cwd=CLI_PATH,
             check=True,  # noqa: S603
         )
-        subprocess.run(CMD + ["install"], cwd=CLI_PATH, check=True)  # noqa: S603
+        safe_command.run(subprocess.run, CMD + ["install"], cwd=CLI_PATH, check=True)  # noqa: S603
 
     except (Exception, KeyboardInterrupt) as e:
         print(e)  # noqa: T201
