@@ -4,13 +4,12 @@ import argparse
 import os
 from pathlib import Path
 from typing import Dict, List, Literal, Type, Union, get_type_hints
-
-import requests
 from openbb_charting import Charting
 from openbb_core.app.provider_interface import ProviderInterface
 from openbb_core.app.router import CommandMap
 
 from extensions.tests.utils.integration_tests_generator import get_test_params
+from security import safe_requests
 
 
 def get_http_method(api_paths: Dict[str, dict], route: str):
@@ -205,7 +204,7 @@ if __name__ == "__main__":
     charting = args.charting
     commands = args.commands
 
-    r = requests.get("http://0.0.0.0:8000/openapi.json", timeout=10).json()
+    r = safe_requests.get("http://0.0.0.0:8000/openapi.json", timeout=10).json()
 
     if not r:
         raise Exception("Could not get openapi.json")

@@ -12,6 +12,7 @@ import requests
 from extensions.tests.conftest import parametrize
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+from security import safe_requests
 
 data: dict = {}
 
@@ -38,7 +39,7 @@ def get_data(menu: Literal["equity", "crypto"]):
 def request_data(menu: str, symbol: str, provider: str):
     """Randomly pick a symbol and a provider and get data from the selected menu."""
     url = f"http://0.0.0.0:8000/api/v1/{menu}/price/historical?symbol={symbol}&provider={provider}"
-    result = requests.get(url, headers=get_headers(), timeout=10)
+    result = safe_requests.get(url, headers=get_headers(), timeout=10)
     return result.json()["results"]
 
 
@@ -992,7 +993,7 @@ def test_technical_relative_rotation(params):
     )
     data_query_str = get_querystring(data_params, [])
     data_url = f"http://0.0.0.0:8000/api/v1/equity/price/historical?{data_query_str}"
-    data_result = requests.get(data_url, headers=get_headers(), timeout=10).json()[
+    data_result = safe_requests.get(data_url, headers=get_headers(), timeout=10).json()[
         "results"
     ]
     body = json.dumps({"data": data_result})

@@ -13,7 +13,8 @@ from openbb_core.app.model.hub.hub_user_settings import HubUserSettings
 from openbb_core.app.model.profile import Profile
 from openbb_core.app.model.user_settings import UserSettings
 from openbb_core.env import Env
-from requests import get, post, put
+from requests import post, put
+from security import safe_requests
 
 
 class HubService:
@@ -173,7 +174,7 @@ class HubService:
         token_type = session.token_type
         authorization = f"{token_type.title()} {access_token}"
 
-        response = get(
+        response = safe_requests.get(
             url=self._base_url + "/logout",
             headers={"Authorization": authorization},
             json={"token": access_token},
@@ -194,7 +195,7 @@ class HubService:
         token_type = session.token_type
         authorization = f"{token_type.title()} {access_token}"
 
-        response = get(
+        response = safe_requests.get(
             url=self._base_url + "/terminal/user",
             headers={"Authorization": authorization},
             timeout=self.TIMEOUT,

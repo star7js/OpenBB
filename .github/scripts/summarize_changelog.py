@@ -4,15 +4,14 @@ import logging
 import re
 import sys
 from typing import Dict
-
-import requests
+from security import safe_requests
 
 
 def fetch_pr_details(owner: str, repo: str, pr_number: str, github_token: str) -> dict:
     """Fetch details of a specific PR from GitHub."""
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}"
     headers = {"Authorization": f"token {github_token}"}
-    response = requests.get(url, headers=headers, timeout=10)
+    response = safe_requests.get(url, headers=headers, timeout=10)
     if response.status_code == 200:
         return response.json()
 
