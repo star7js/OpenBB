@@ -7,6 +7,7 @@ import requests
 from extensions.tests.conftest import parametrize
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+from security import safe_requests
 
 # pylint: disable=too-many-lines,redefined-outer-name
 
@@ -62,7 +63,7 @@ def test_derivatives_options_chains(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/derivatives/options/chains?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -93,7 +94,7 @@ def test_derivatives_options_unusual(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/derivatives/options/unusual?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -120,7 +121,7 @@ def test_derivatives_futures_historical(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/derivatives/futures/historical?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -151,7 +152,7 @@ def test_derivatives_futures_curve(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/derivatives/futures/curve?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -169,6 +170,6 @@ def test_derivatives_options_snapshots(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/derivatives/options/snapshots?{query_str}"
-    result = requests.get(url, headers=headers, timeout=60)
+    result = safe_requests.get(url, headers=headers, timeout=60)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200

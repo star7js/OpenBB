@@ -7,6 +7,7 @@ import requests
 from extensions.tests.conftest import parametrize
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+from security import safe_requests
 
 
 @pytest.fixture(scope="session")
@@ -37,7 +38,7 @@ def test_index_constituents(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/constituents?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -122,7 +123,7 @@ def test_index_price_historical(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/price/historical?{query_str}"
-    result = requests.get(url, headers=headers, timeout=20)
+    result = safe_requests.get(url, headers=headers, timeout=20)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -143,7 +144,7 @@ def test_index_available(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/available?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -161,7 +162,7 @@ def test_index_search(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/search?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -180,7 +181,7 @@ def test_index_snapshots(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/snapshots?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -215,7 +216,7 @@ def test_index_sp500_multiples(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/sp500_multiples?{query_str}"
-    result = requests.get(url, headers=headers, timeout=20)
+    result = safe_requests.get(url, headers=headers, timeout=20)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -233,6 +234,6 @@ def test_index_sectors(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/index/sectors?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
