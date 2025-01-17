@@ -11,6 +11,7 @@ from typing import (
 
 from openbb_core.app.static.utils.console import Console
 from openbb_core.env import Env
+from security import safe_command
 
 
 class Linters:
@@ -39,8 +40,7 @@ class Linters:
             command = [linter]
             if flags:
                 command.extend(flags)  # type: ignore
-            subprocess.run(
-                command + list(self.directory.glob("*.py")), check=False  # noqa: S603
+            safe_command.run(subprocess.run, command + list(self.directory.glob("*.py")), check=False  # noqa: S603
             )
 
             self.print_separator("-")
