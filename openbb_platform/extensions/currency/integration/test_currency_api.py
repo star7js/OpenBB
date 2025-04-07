@@ -7,6 +7,7 @@ import requests
 from extensions.tests.conftest import parametrize
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+from security import safe_requests
 
 # pylint: disable=redefined-outer-name
 
@@ -51,7 +52,7 @@ def test_currency_search(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/currency/search?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -144,7 +145,7 @@ def test_currency_price_historical(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/currency/price/historical?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -160,7 +161,7 @@ def test_currency_reference_rates(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/currency/reference_rates?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -193,6 +194,6 @@ def test_currency_snapshots(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/currency/snapshots?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200

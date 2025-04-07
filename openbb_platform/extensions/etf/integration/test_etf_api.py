@@ -7,6 +7,7 @@ import requests
 from extensions.tests.conftest import parametrize
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+from security import safe_requests
 
 
 @pytest.fixture(scope="session")
@@ -51,7 +52,7 @@ def test_etf_search(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/search?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -232,7 +233,7 @@ def test_etf_historical(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/historical?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -253,7 +254,7 @@ def test_etf_info(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/info?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -272,7 +273,7 @@ def test_etf_sectors(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/sectors?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -290,7 +291,7 @@ def test_etf_holdings_date(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/holdings_date?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -360,7 +361,7 @@ def test_etf_holdings(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/holdings?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -387,7 +388,7 @@ def test_etf_price_performance(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/price_performance?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -406,7 +407,7 @@ def test_etf_countries(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/countries?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -422,7 +423,7 @@ def test_etf_discovery_gainers(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/discovery/gainers?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -438,7 +439,7 @@ def test_etf_discovery_losers(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/discovery/losers?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -454,7 +455,7 @@ def test_etf_discovery_active(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/discovery/active?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200
 
@@ -472,6 +473,6 @@ def test_etf_equity_exposure(params, headers):
 
     query_str = get_querystring(params, [])
     url = f"http://0.0.0.0:8000/api/v1/etf/equity_exposure?{query_str}"
-    result = requests.get(url, headers=headers, timeout=10)
+    result = safe_requests.get(url, headers=headers, timeout=10)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200

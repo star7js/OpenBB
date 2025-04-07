@@ -9,6 +9,7 @@ import pytest
 import requests
 from openbb_core.env import Env
 from openbb_core.provider.utils.helpers import get_querystring
+from security import safe_requests
 
 data: Dict = {}
 
@@ -29,7 +30,7 @@ def get_headers():
 def request_data(menu: str, symbol: str, provider: str):
     """Randomly pick a symbol and a provider and get data from the selected menu."""
     url = f"http://0.0.0.0:8000/api/v1/{menu}/price/historical?symbol={symbol}&provider={provider}"
-    result = requests.get(url, headers=get_headers(), timeout=10)
+    result = safe_requests.get(url, headers=get_headers(), timeout=10)
     return result.json()["results"]
 
 

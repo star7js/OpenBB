@@ -16,7 +16,6 @@ from types import MethodType
 from typing import Any, Dict, List, Optional
 
 import pandas as pd
-import requests
 from openbb import obb
 from openbb_cli.config import constants
 from openbb_cli.config.constants import (
@@ -46,6 +45,7 @@ from openbb_cli.session import Session
 from prompt_toolkit.formatted_text import HTML
 from prompt_toolkit.styles import Style
 from pydantic import BaseModel
+from security import safe_requests
 
 PLATFORM_ROUTERS = {
     d: "menu" if not isinstance(getattr(obb, d), BaseModel) else "command"
@@ -400,7 +400,7 @@ class CLIController(BaseController):
                 script_name = url.split("/")[-1]
                 file_name = f"{username}_{script_name}.openbb"
                 final_url = f"{url}?raw=true"
-                response = requests.get(final_url, timeout=10)
+                response = safe_requests.get(final_url, timeout=10)
                 if response.status_code != 200:
                     session.console.print(
                         "[red]Could not find the requested script.[/red]"
