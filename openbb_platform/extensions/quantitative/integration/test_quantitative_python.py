@@ -1,11 +1,10 @@
 """Test qa extension."""
-
-import random
 from typing import Literal
 
 import pytest
 from extensions.tests.conftest import parametrize
 from openbb_core.app.model.obbject import OBBject
+import secrets
 
 
 # pylint:disable=inconsistent-return-statements
@@ -30,8 +29,8 @@ def get_stocks_data():
     if "stocks_data" in data:
         return data["stocks_data"]
 
-    symbol = random.choice(["AAPL", "NVDA", "MSFT", "TSLA", "AMZN", "V"])  # noqa: S311
-    provider = random.choice(["fmp", "polygon", "yfinance"])  # noqa: S311
+    symbol = secrets.choice(["AAPL", "NVDA", "MSFT", "TSLA", "AMZN", "V"])  # noqa: S311
+    provider = secrets.choice(["fmp", "polygon", "yfinance"])  # noqa: S311
 
     data["stocks_data"] = openbb.obb.equity.price.historical(
         symbol=symbol, provider=provider
@@ -47,8 +46,8 @@ def get_crypto_data():
         return data["crypto_data"]
 
     # TODO : add more crypto providers and symbols
-    symbol = random.choice(["BTCUSD"])  # noqa: S311
-    provider = random.choice(["fmp"])  # noqa: S311
+    symbol = secrets.choice(["BTCUSD"])  # noqa: S311
+    provider = secrets.choice(["fmp"])  # noqa: S311
 
     data["crypto_data"] = openbb.obb.crypto.price.historical(
         symbol=symbol, provider=provider

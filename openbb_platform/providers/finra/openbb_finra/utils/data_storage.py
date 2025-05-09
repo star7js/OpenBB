@@ -8,6 +8,7 @@ from typing import List
 
 from openbb_core.app.utils import get_user_cache_directory
 from openbb_finra.utils.helpers import get_short_interest_dates
+import secrets
 
 
 def get_db_path():
@@ -46,8 +47,6 @@ def get_cached_dates() -> List:
 
 def get_data_from_date_and_store(date):
     """Get data from a specific date and place it in the cache."""
-    # pylint: disable=import-outside-toplevel
-    import random  # noqa
     import sqlite3  # noqa
     from io import StringIO  # noqa
     from openbb_core.provider.utils.helpers import make_request  # noqa
@@ -58,7 +57,7 @@ def get_data_from_date_and_store(date):
     # add a random string to user agent to avoid getting blocked
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-        + str(random.randint(0, 9))  # noqa: S311
+        + str(secrets.SystemRandom().randint(0, 9))  # noqa: S311
     }
     req = make_request(url, headers=headers, timeout=1)
     if req.status_code != 200:
