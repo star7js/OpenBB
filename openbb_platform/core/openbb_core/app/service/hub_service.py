@@ -279,8 +279,7 @@ class HubService:
                 token,
                 key="secret",
                 algorithms=[header_data["alg"]],
-                options={"verify_signature": False, "verify_exp": True},
-            )
+                options={"verify_signature": True, "verify_exp": True})
         except ExpiredSignatureError as e:
             raise OpenBBError("Platform personal access token expired.") from e
         except PyJWTError as e:
