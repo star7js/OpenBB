@@ -5,6 +5,7 @@ from importlib.metadata import (
     version as pkg_version,
 )
 from pathlib import Path
+from security import safe_command
 
 PACKAGE = "openbb"
 
@@ -40,8 +41,7 @@ def is_git_repo(path: Path):
     if not git_executable:
         return False
     try:
-        subprocess.run(
-            [git_executable, "rev-parse", "--is-inside-work-tree"],  # noqa: S603
+        safe_command.run(subprocess.run, [git_executable, "rev-parse", "--is-inside-work-tree"],  # noqa: S603
             cwd=path,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
